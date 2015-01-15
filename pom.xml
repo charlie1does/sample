@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ingenious3</groupId>
+    <artifactId>sample</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>sample</name>
+
+    <url>https://www.ingenious3.com/sample</url>
+
+    <description>
+        Sample repository describing a various technology based projects setup. See README.md.
+    </description>
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>Distribute in the same matter</comments>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://jira</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>TeamCity</system>
+        <url>https://teamcity</url>
+    </ciManagement>
+
+    <developers>
+        <developer>
+            <name>Karel Vandas</name>
+            <email>karel.vandas@example.com</email>
+            <roles>
+                <role>Project Tech Lead</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/charlie1does/sample.git</connection>
+        <developerConnection>https://github.com/charlie1does/sample.git</developerConnection>
+        <url>https://github.com/charlie1does/sample.git</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <!-- maven -->
+        <maven.version.range>[3.2.2,3.3.0)</maven.version.range>
+        <maven.enforcer.plugin.version>1.2</maven.enforcer.plugin.version>
+        <maven.compiler.plugin.version>2.4</maven.compiler.plugin.version>
+        <maven.surefire.version>2.17</maven.surefire.version>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <!-- reports -->
+        <org.codehaus.mojo.cobertura.version>2.6</org.codehaus.mojo.cobertura.version>
+        <!-- code quality -->
+        <!--<sonar.profile>default</sonar.profile>-->
+        <!--<sonar.host.url>https://sonar</sonar.host.url>-->
+        <!--<sonar.svm.enabled>false</sonar.svm.enabled>-->
+        <!--<sonar.jdbc.url/>-->
+        <!--<sonar.jdbc.driver/>-->
+        <!--<sonar.jdbc.username/>-->
+        <!--<sonar.jdbc.password/>-->
+        <!--<sonar.hibernate.default_schema/>-->
+        <!--<sonar.maven.plugin.version/>-->
+        <!--<sonar.pdf.skip/>-->
+        <!--<sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>-->
+        <!--<sonar.cobertura.reportPath>${project.build.directory}/site/cobertura/coverage.xml</sonar.cobertura.reportPath>-->
+        <!-- testing -->
+        <junit.version>4.11</junit.version>
+
+        <!-- frameworks -->
+        <org.springframework.version>3.2.4.RELEASE</org.springframework.version>
+        <!-- logging -->
+        <org.slf4j.version>1.7.5</org.slf4j.version>
+        <ch.qos.logback.version>1.0.13</ch.qos.logback.version>
+        <!-- caching -->
+        <com.google.guava.version>17.0</com.google.guava.version>
+        <!-- dependencies -->
+        <org.apache.commons-lang3.version>3.1</org.apache.commons-lang3.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${ch.qos.logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${org.apache.commons-lang3.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${com.google.guava.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
+
+    <build>
+        <!-- only reflecting values not present in the super pom http://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
+        <finalName>sample-${version}-${maven.build.timestamp}</finalName>
+
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*UnitTest.java</include>
+                    </includes>
+                    <failIfNoTests>true</failIfNoTests>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>test</phase>
+                        <configuration>
+                            <argLine>-Dspring.profiles.active=TEST</argLine>
+                        </configuration>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${org.codehaus.mojo.cobertura.version}</version>
+                <configuration>
+                    <check>
+                        <regexes>
+                            <regex>
+                                <pattern>com.ingenious3.sample.*</pattern>
+                                <branchRate>50</branchRate>
+                                <lineRate>50</lineRate>
+                            </regex>
+                        </regexes>
+                    </check>
+                    <formats>
+                        <format>xml</format>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>changes-maven-plugin</artifactId>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${org.codehaus.mojo.cobertura.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+
+</project>
