@@ -23,6 +23,9 @@ public class ServiceIntegerImpl extends AbstractInteger implements ServiceIntege
 
     @Override
     public Integer function(final Integer argument){
+        if(argument == null){
+            throw new IllegalArgumentException("Argument must not be null!");
+        }
         return atomicInteger.addAndGet(argument);
     }
 }

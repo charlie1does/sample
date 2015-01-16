@@ -1,6 +1,8 @@
 package com.ingenious3.sample.controller;
 
 import com.ingenious3.sample.api.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/")
 public class ServiceController implements HandlerExceptionResolver {
 
+    private final Logger LOG = LoggerFactory.getLogger(ServiceController.class);
+
     @Autowired
     @Qualifier("serviceInteger")
     private Service serviceInteger;
@@ -34,6 +38,7 @@ public class ServiceController implements HandlerExceptionResolver {
 
     @RequestMapping(method = RequestMethod.GET, value = "/serviceInteger")
     public String getServiceInteger(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "argument") Integer argument){
+        LOG.info("serviceInteger service started!");
         modelMap.addAttribute("value", serviceInteger.function(argument));
         modelMap.addAttribute("service", "integer");
         return "service";
@@ -41,6 +46,7 @@ public class ServiceController implements HandlerExceptionResolver {
 
     @RequestMapping(method = RequestMethod.GET, value = "/serviceString")
     public String getServiceString(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "argument") String argument){
+        LOG.info("serviceInteger service started!");
         modelMap.addAttribute("value", serviceString.function(argument));
         modelMap.addAttribute("service", "string");
         return "service";
@@ -55,6 +61,7 @@ public class ServiceController implements HandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
         ModelMap modelMap = new ModelMap();
         modelMap.addAttribute("exception", e.getMessage());
+        LOG.error(e.getMessage());
         return new ModelAndView("error", modelMap);
     }
 }
