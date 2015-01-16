@@ -8,11 +8,17 @@
         http://www.springframework.org/schema/context/spring-context.xsd"
         >
 
-
-    <context:property-placeholder location="classpath:config/web.${spring.profiles.active:test}.properties"/>
-
     <import resource="classpath:app-context.xml"/>
 
     <context:annotation-config/>
+
+    <!--<context:property-placeholder location="classpath:config/web.${spring.profiles.active:test}.properties"/>-->
+    <bean id="clientProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:config/*.${spring.profiles.active}.properties</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>
