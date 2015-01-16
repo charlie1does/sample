@@ -45,14 +45,14 @@
     </developers>
 
     <scm>
-        <connection>https://github.com/charlie1does/sample.git</connection>
-        <developerConnection>https://github.com/charlie1does/sample.git</developerConnection>
+        <connection>svm:git:https://github.com/charlie1does/sample.git</connection>
+        <developerConnection>scm:git:https://github.com/charlie1does/sample.git</developerConnection>
         <url>https://github.com/charlie1does/sample.git</url>
     </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
         <!-- maven -->
         <maven.version.range>[3.2.2,3.3.0)</maven.version.range>
         <maven.enforcer.plugin.version>1.2</maven.enforcer.plugin.version>
@@ -90,6 +90,9 @@
         <maven.jetty.plugin.version>8.1.10.v20130312</maven.jetty.plugin.version>
         <!-- dependencies -->
         <org.apache.commons-lang3.version>3.1</org.apache.commons-lang3.version>
+        <!-- jsp -->
+        <jstl.version>1.2</jstl.version>
+        <taglibs.standard.version>1.1.2</taglibs.standard.version>
     </properties>
 
     <dependencies>
@@ -97,6 +100,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -184,13 +188,27 @@
             <version>${com.google.guava.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>${taglibs.standard.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 
 
     <build>
         <!-- only reflecting values not present in the super pom http://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
-        <finalName>sample-${version}-${maven.build.timestamp}</finalName>
+        <finalName>sample</finalName>
 
 
         <plugins>
@@ -204,12 +222,25 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*UnitTest.java</include>
-                        <!--<include>**/*ContextTest.java</include>-->
+                        <include>**/*ContextTest.java</include>
                     </includes>
                     <failIfNoTests>true</failIfNoTests>
                 </configuration>

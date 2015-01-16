@@ -16,7 +16,8 @@
     <bean id="clientProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="locations">
             <list>
-                <value>classpath:config/*.${spring.profiles.active}.properties</value>
+                <value>classpath:config/log.${spring.profiles.active}.properties</value>
+                <value>classpath:config/web.${spring.profiles.active}.properties</value>
             </list>
         </property>
     </bean>

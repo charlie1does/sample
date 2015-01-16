@@ -2,7 +2,7 @@
 <configuration debug="true">
 
     <property resource="logback.properties" scope="context"/>
-    <property resource="config/log.${spring.profiles.active}.properties" scope="context"/>
+    <property resource="classpath:config/log.${spring.profiles.active}.properties" scope="context"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

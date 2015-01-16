@@ -8,6 +8,11 @@
 <title>sample ${service}</title>
 </head>
 <body>
-${value}
+To view the functionality, run<br/>
+<a href="/serviceInteger?argument=13">/serviceInteger?argument=13</a><br/>
+<a href="/serviceString?argument=str">/serviceString?argument=customString</a><br/>
+<a href="/serviceError">/serviceError</a><br/>
+<c:set var="sample" value="${value}"/>
+Current value : <c:out value="${sample}"/>
 </body>
 </html>
