@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * User: Charlie
  * Date: 16. 1. 2015
  */
-public class AbstractService<T> implements Service<T> {
+public abstract class AbstractService<T> implements Service<T> {
 
     private final Logger LOG = LoggerFactory.getLogger(AbstractService.class);
 

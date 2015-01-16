@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 16. 1. 2015
  */
 @Service("serviceInteger")
-public class ServiceIntegerImpl extends AbstractInteger implements ServiceInteger {
+public final class ServiceIntegerImpl extends AbstractInteger implements ServiceInteger {
 
     @Autowired
     @Qualifier("atomicInteger")

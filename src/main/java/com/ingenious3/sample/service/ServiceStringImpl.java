@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * Date: 16. 1. 2015
  */
 @Service("serviceString")
-public class ServiceStringImpl extends AbstractString implements ServiceString {
+public final class ServiceStringImpl extends AbstractString implements ServiceString {
 
     @Value("${argument.string}")
     private String str;

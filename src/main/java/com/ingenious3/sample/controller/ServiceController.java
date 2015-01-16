@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("/")
-public class ServiceController implements HandlerExceptionResolver {
+public final class ServiceController implements HandlerExceptionResolver {
 
     private final Logger LOG = LoggerFactory.getLogger(ServiceController.class);
 
