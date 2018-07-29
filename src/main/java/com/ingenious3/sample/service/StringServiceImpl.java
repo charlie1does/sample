@@ -1,18 +1,14 @@
 package com.ingenious3.sample.service;
 
-import com.ingenious3.sample.api.ServiceString;
-import com.ingenious3.sample.impl.AbstractString;
+import com.ingenious3.sample.api.StringService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
- * Function implementing the Service for the string functionality.
- *
- * User: Charlie
- * Date: 16. 1. 2015
+ * Class implements the string service functionality.
  */
 @Service("serviceString")
-public final class ServiceStringImpl extends AbstractString implements ServiceString {
+public final class StringServiceImpl implements StringService {
 
     @Value("${argument.string}")
     private String str;

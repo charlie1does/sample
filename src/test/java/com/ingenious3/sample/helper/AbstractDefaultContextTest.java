@@ -1,14 +1,13 @@
 package com.ingenious3.sample.helper;
 
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * User: Charlie
- * Date: 16. 1. 2015
+ * Generic class for allowing the spring context in tests.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/webContext.xml"})
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(locations = {"classpath:app-context.xml"})
 public abstract class AbstractDefaultContextTest {
 }

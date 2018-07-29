@@ -1,7 +1,6 @@
 package com.ingenious3.sample.service;
 
-import com.ingenious3.sample.api.ServiceInteger;
-import com.ingenious3.sample.impl.AbstractInteger;
+import com.ingenious3.sample.api.IntegerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -9,13 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Function implementing the Service for the integer functionality.
- *
- * User: Charlie
- * Date: 16. 1. 2015
+ * Class implements the integer service functionality.
  */
 @Service("serviceInteger")
-public final class ServiceIntegerImpl extends AbstractInteger implements ServiceInteger {
+public final class IntegerIncrementServiceImpl implements IntegerService {
 
     @Autowired
     @Qualifier("atomicInteger")

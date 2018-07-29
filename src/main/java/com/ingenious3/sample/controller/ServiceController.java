@@ -1,26 +1,26 @@
 package com.ingenious3.sample.controller;
 
-import com.ingenious3.sample.api.Service;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ingenious3.sample.dto.IntegerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.ingenious3.sample.api.IntegerService;
+import com.ingenious3.sample.api.StringService;
+import com.ingenious3.sample.dto.StringResponse;
 
 /**
- * Controller handling the service.
- *
- * User: Charlie
- * Date: 16. 1. 2015
+ * Controller handles the service responses.
  */
 @Controller
 @RequestMapping("/")
@@ -30,30 +30,24 @@ public final class ServiceController implements HandlerExceptionResolver {
 
     @Autowired
     @Qualifier("serviceInteger")
-    private Service serviceInteger;
+    private IntegerService integerService;
 
     @Autowired
     @Qualifier("serviceString")
-    private Service serviceString;
+    private StringService stringService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/serviceInteger")
-    public String getServiceInteger(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "argument") Integer argument){
-        LOG.info("serviceInteger service started!");
-        modelMap.addAttribute("value", serviceInteger.function(argument));
-        modelMap.addAttribute("service", "integer");
-        return "service";
+    public @ResponseBody IntegerResponse getServiceInteger(ModelMap modelMap, @RequestParam(value = "argument") Integer argument) {
+        return IntegerResponse.of(integerService.function(argument), IntegerService.class);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/serviceString")
-    public String getServiceString(ModelMap modelMap, HttpServletRequest request, @RequestParam(value = "argument") String argument){
-        LOG.info("serviceInteger service started!");
-        modelMap.addAttribute("value", serviceString.function(argument));
-        modelMap.addAttribute("service", "string");
-        return "service";
+    @RequestMapping(method = RequestMethod.GET, value = "/serviceString", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, headers = "Accept=application/json")
+    @ResponseBody public StringResponse getServiceString(@RequestParam(value = "argument") String argument) {
+        return StringResponse.of(stringService.function(argument), StringService.class);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/serviceError")
-    public String getServiceString(ModelMap modelMap, HttpServletRequest request){
+    public String getServiceString(){
         throw new UnsupportedOperationException("Unsupported operation exception");
     }
 

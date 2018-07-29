@@ -52,40 +52,20 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <!-- maven -->
-        <maven.version.range>[3.2.2,3.3.0)</maven.version.range>
-        <maven.enforcer.plugin.version>1.2</maven.enforcer.plugin.version>
-        <maven.compiler.plugin.version>2.4</maven.compiler.plugin.version>
-        <maven.surefire.version>2.17</maven.surefire.version>
+        <maven.version.range>[3.5.0,)</maven.version.range>
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
-        <!-- reports -->
-        <org.codehaus.mojo.cobertura.version>2.6</org.codehaus.mojo.cobertura.version>
-        <!-- code quality -->
-        <!--<sonar.profile>default</sonar.profile>-->
-        <!--<sonar.host.url>https://sonar</sonar.host.url>-->
-        <!--<sonar.svm.enabled>false</sonar.svm.enabled>-->
-        <!--<sonar.jdbc.url/>-->
-        <!--<sonar.jdbc.driver/>-->
-        <!--<sonar.jdbc.username/>-->
-        <!--<sonar.jdbc.password/>-->
-        <!--<sonar.hibernate.default_schema/>-->
-        <!--<sonar.maven.plugin.version/>-->
-        <!--<sonar.pdf.skip/>-->
-        <!--<sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>-->
-        <!--<sonar.cobertura.reportPath>${project.build.directory}/site/cobertura/coverage.xml</sonar.cobertura.reportPath>-->
-        <!-- testing -->
-        <junit.version>4.11</junit.version>
+        <junit.version>5.0.0-ALPHA</junit.version>
 
         <!-- frameworks -->
-        <org.springframework.version>4.1.4.RELEASE</org.springframework.version>
-        <org.springframework.ws.test.version>2.0.0.RELEASE</org.springframework.ws.test.version>
-        <javax.servlet.version>2.5</javax.servlet.version>
+        <org.springframework.version>5.0.8.RELEASE</org.springframework.version>
+        <javax.servlet.version>3.0-alpha-1</javax.servlet.version>
         <!-- logging -->
-        <org.slf4j.version>1.7.5</org.slf4j.version>
-        <ch.qos.logback.version>1.0.13</ch.qos.logback.version>
+        <org.slf4j.version>1.8.0-beta2</org.slf4j.version>
+        <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
         <!-- caching -->
-        <com.google.guava.version>17.0</com.google.guava.version>
+        <com.google.guava.version>25.1-jre</com.google.guava.version>
         <!-- container -->
         <maven.jetty.plugin.version>8.1.10.v20130312</maven.jetty.plugin.version>
         <!-- dependencies -->
@@ -93,62 +73,54 @@
         <!-- jsp -->
         <jstl.version>1.2</jstl.version>
         <taglibs.standard.version>1.1.2</taglibs.standard.version>
+
+        <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${org.springframework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-lang</groupId>
+                        <artifactId>commons-lang</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.1.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${org.springframework.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.ws</groupId>
-            <artifactId>spring-ws-test</artifactId>
-            <version>${org.springframework.ws.test.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -202,6 +174,24 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.6</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -214,7 +204,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -236,7 +225,6 @@
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*UnitTest.java</include>
@@ -260,38 +248,8 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${org.codehaus.mojo.cobertura.version}</version>
-                <configuration>
-                    <check>
-                        <regexes>
-                            <regex>
-                                <pattern>com.ingenious3.sample.*</pattern>
-                                <branchRate>50</branchRate>
-                                <lineRate>50</lineRate>
-                            </regex>
-                        </regexes>
-                    </check>
-                    <formats>
-                        <format>xml</format>
-                        <format>html</format>
-                    </formats>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven.enforcer.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-banned-dependencies</id>
@@ -331,7 +289,6 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${maven.jetty.plugin.version}</version>
                 <configuration>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <stopKey>dvadmin</stopKey>
@@ -352,14 +309,14 @@
 
     <reporting>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>changes-maven-plugin</artifactId>-->
-            <!--</plugin>-->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${org.codehaus.mojo.cobertura.version}</version>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+                <configuration>
+                    <destFile>${sonar.jacoco.reportPaths}</destFile>
+                    <append>false</append>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
